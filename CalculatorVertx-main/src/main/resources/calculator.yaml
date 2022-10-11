@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  version: "1.0.0"
+  title: Calculator-API
+  description: This application sums two numbers
+paths:
+  /api/calculator/sum:
+    post:
+      operationId: sum
+      parameters:
+        - name: number1
+          in: query
+          required: true
+          schema:
+            type: number
+            example: 1
+        - name: number2
+          in: query
+          required: true
+          schema:
+            type: number
+            example: 2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              example: "Resultado: 3"
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              example: Bad Request
+  /api/calculator/results:
+    get:
+      operationId: getResults
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    result:
+                      type: number
+                      example: 4.2
+                    date:
+                      type: string
+                      example: "2022-10-04 13:14:15"
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              example: Bad Request
+  /api/calculator/results/delete/{resultId}:
+    delete:
+      operationId: deleteResults
+      parameters:
+        - name: resultId
+          in: path
+          description: ID of result
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '204':
+          description: No content response
+
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              example: Bad Request
